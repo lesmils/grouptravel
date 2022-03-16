@@ -7,18 +7,31 @@ const Comment = require("../models/").comment;
 
 const router = new Router();
 
+//GET ALL TRIPS
 router.get("/", async (req, res) => {
   const allTrips = await Trip.findAll({
-    include: {
-      model: User,
-      as: "traveler",
-      attributes: ["name", "id"],
-    },
+    include: [
+      { model: User, as: "traveler" },
+      { model: User, as: "organizer" },
+    ],
+    // include: {
+    //   model: User,
+    //   as: "traveler",
+    //   // attributes: ["name", "id"],
+    // },
+    // include: [
+    //   {
+    //     model: User,
+    //     as: "organizer",
+    //     // attributes: ["name", "id"],
+    //   },
+    // ],
     // order: [["time", "ASC"]],
   });
   res.status(200).send(allTrips);
 });
 
+//GET ONE TRIP
 router.get("/:id", async (req, res) => {
   const tripId = req.params.id;
 
@@ -32,9 +45,18 @@ router.get("/:id", async (req, res) => {
       as: "traveler",
       attributes: ["name", "id"],
     },
-    include: {
-      model: Comment,
-    },
+    include: [
+      {
+        model: Comment,
+      },
+    ],
+    include: [
+      {
+        model: User,
+        as: "organizer",
+        attributes: ["name", "id"],
+      },
+    ],
   });
   res.status(200).send(oneTrip);
 });

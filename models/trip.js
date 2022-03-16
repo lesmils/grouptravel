@@ -13,9 +13,8 @@ module.exports = (sequelize, DataTypes) => {
         as: "organizer",
       });
       trip.belongsToMany(models.user, {
-        foreignKey: "travelerId",
+        foreignKey: "tripId",
         through: "userTrips",
-        as: "traveler",
       });
       trip.hasMany(models.comment, { foreignKey: "tripId" });
     }
