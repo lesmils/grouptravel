@@ -1,0 +1,42 @@
+const bcrypt = require("bcrypt");
+const { Router } = require("express");
+const { toJWT } = require("../auth/jwt");
+const User = require("../models/").user;
+const Trip = require("../models/").trip;
+const Comment = require("../models/").comment;
+
+const router = new Router();
+
+router.get("/", async (req, res) => {
+  const allTrips = await Trip.findAll({
+    include: {
+      model: User,
+      as: "traveler",
+      attributes: ["name", "id"],
+    },
+    // order: [["time", "ASC"]],
+  });
+  res.status(200).send(allTrips);
+});
+
+router.get("/:id", async (req, res) => {
+  const tripId = req.params.id;
+
+  if (isNaN(parseInt(tripId))) {
+    return res.status(400).send({ message: "Trip id is not a number" });
+  }
+
+  const oneTrip = await Trip.findByPk(tripId, {
+    include: {
+      model: User,
+      as: "traveler",
+      attributes: ["name", "id"],
+    },
+    include: {
+      model: Comment,
+    },
+  });
+  res.status(200).send(oneTrip);
+});
+
+module.exports = router;
