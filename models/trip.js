@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       trip.belongsToMany(models.user, {
         foreignKey: "tripId",
         through: "userTrips",
+        as: "traveler"
       });
       trip.hasMany(models.comment, { foreignKey: "tripId" });
     }
