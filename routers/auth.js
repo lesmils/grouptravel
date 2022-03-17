@@ -20,6 +20,7 @@ router.post("/login", async (req, res, next) => {
     }
 
     const user = await User.findOne({
+<<<<<<< HEAD
       where: { email }
       // ,
       // attributes: { exclude: ["password", "email"] },
@@ -36,6 +37,23 @@ router.post("/login", async (req, res, next) => {
       //     model: Comment,
       //   },
       // ],
+=======
+      where: { email },
+
+      include: [
+        {
+          model: Trip,
+          as: "organizer",
+        },
+        {
+          model: Trip,
+          as: "traveler",
+        },
+        {
+          model: Comment,
+        },
+      ],
+>>>>>>> 31e75d33c1850064bebcc4f6bc2ede1af684a4aa
     });
 
     if (!user || !bcrypt.compareSync(password, user.password)) {
@@ -87,7 +105,6 @@ router.post("/signup", async (req, res) => {
 // - checking if a token is (still) valid
 router.get("/me", authMiddleware, async (req, res) => {
   const currentUser = await User.findByPk(req.user.dataValues.id, {
-    attributes: { exclude: ["password", "email"] },
     include: [
       {
         model: Trip,
