@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       gender: DataTypes.STRING,
       description: DataTypes.TEXT,
-      dateOfBirth: DataTypes.DATE,
+      dateOfBirth: DataTypes.DATEONLY,
     },
     {
       sequelize,

@@ -33,6 +33,32 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          name: "testguy",
+          email: "1",
+          phoneNumber: "0600000000",
+          imageAvatar:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSid1oW_E1oqFO0YfCDOnqFPP_lEwagLmIhr4o9euKIO6-Ll7ESqW_1Dl3OMW1iwfJqX8s&usqp=CAU",
+          password: bcrypt.hashSync("1", SALT_ROUNDS),
+          gender: "woman",
+          description: "Hello, this is me.",
+          dateOfBirth: new Date(1955, 1, 27),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: "testuser",
+          email: "aaaa@test.com",
+          phoneNumber: "0600000000",
+          imageAvatar:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSid1oW_E1oqFO0YfCDOnqFPP_lEwagLmIhr4o9euKIO6-Ll7ESqW_1Dl3OMW1iwfJqX8s&usqp=CAU",
+          password: bcrypt.hashSync("test1234", SALT_ROUNDS),
+          gender: "woman",
+          description: "Hello, this is me.",
+          dateOfBirth: new Date(1955, 1, 27),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {}
     );
@@ -42,3 +68,4 @@ module.exports = {
     await queryInterface.bulkDelete("users", null, {});
   },
 };
+``

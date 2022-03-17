@@ -27,8 +27,8 @@ module.exports = (sequelize, DataTypes) => {
       image: DataTypes.STRING,
       country: DataTypes.STRING,
       maximumTravelers: DataTypes.INTEGER,
-      startingDate: DataTypes.DATE,
-      endDate: DataTypes.DATE,
+      startingDate: DataTypes.DATEONLY,
+      endDate: DataTypes.DATEONLY,
     },
     {
       sequelize,
