@@ -40,21 +40,19 @@ router.get("/:id", async (req, res) => {
   }
 
   const oneTrip = await Trip.findByPk(tripId, {
-    include: {
-      model: User,
-      as: "traveler",
-      attributes: ["name", "id"],
-    },
     include: [
       {
-        model: Comment,
+        model: User,
+        as: "traveler",
+        attributes: ["name", "id"],
       },
-    ],
-    include: [
       {
         model: User,
         as: "organizer",
         attributes: ["name", "id"],
+      },
+      {
+        model: Comment,
       },
     ],
   });
