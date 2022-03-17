@@ -21,6 +21,7 @@ router.post("/login", async (req, res, next) => {
 
     const user = await User.findOne({
       where: { email },
+      attributes: { exclude: ["password", "email"] },
       include: [
         {
           model: Trip,
@@ -85,6 +86,7 @@ router.post("/signup", async (req, res) => {
 // - checking if a token is (still) valid
 router.get("/me", authMiddleware, async (req, res) => {
   const currentUser = await User.findByPk(req.user.dataValues.id, {
+    attributes: { exclude: ["password", "email"] },
     include: [
       {
         model: Trip,

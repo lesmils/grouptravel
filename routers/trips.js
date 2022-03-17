@@ -11,22 +11,10 @@ const router = new Router();
 router.get("/", async (req, res) => {
   const allTrips = await Trip.findAll({
     include: [
-      { model: User, as: "traveler" },
-      { model: User, as: "organizer" },
+      { model: User, as: "traveler", attributes: ["name", "id"] },
+      { model: User, as: "organizer", attributes: ["name", "id"] },
     ],
-    // include: {
-    //   model: User,
-    //   as: "traveler",
-    //   // attributes: ["name", "id"],
-    // },
-    // include: [
-    //   {
-    //     model: User,
-    //     as: "organizer",
-    //     // attributes: ["name", "id"],
-    //   },
-    // ],
-    // order: [["time", "ASC"]],
+    order: [["startingDate", "ASC"]],
   });
   res.status(200).send(allTrips);
 });
