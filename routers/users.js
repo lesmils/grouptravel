@@ -4,6 +4,7 @@ const { toJWT } = require("../auth/jwt");
 const User = require("../models/").user;
 const Trip = require("../models/").trip;
 const Comment = require("../models/").comment;
+const authMiddleware = require("../auth/middleware");
 
 const router = new Router();
 

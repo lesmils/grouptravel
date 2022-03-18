@@ -12,7 +12,7 @@ module.exports = {
           email: "test@test.com",
           phoneNumber: "0600000000",
           imageAvatar:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSid1oW_E1oqFO0YfCDOnqFPP_lEwagLmIhr4o9euKIO6-Ll7ESqW_1Dl3OMW1iwfJqX8s&usqp=CAU",
+            "https://upload.wikimedia.org/wikipedia/commons/4/4e/MyAvatar_%2841%29.png",
           password: bcrypt.hashSync("test1234", SALT_ROUNDS),
           gender: "woman",
           description: "Hello, this is me.",
@@ -25,7 +25,7 @@ module.exports = {
           email: "a@a.com",
           phoneNumber: "0611111000",
           imageAvatar:
-            "https://upload.wikimedia.org/wikipedia/commons/4/4e/MyAvatar_%2841%29.png",
+            "https://www.educaccionperu.org/wp-content/uploads/2020/04/myAvatar.png",
           password: bcrypt.hashSync("a", SALT_ROUNDS),
           gender: "men",
           description: "Byenpm, this is me.",
@@ -38,7 +38,7 @@ module.exports = {
           email: "1",
           phoneNumber: "0600000000",
           imageAvatar:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSid1oW_E1oqFO0YfCDOnqFPP_lEwagLmIhr4o9euKIO6-Ll7ESqW_1Dl3OMW1iwfJqX8s&usqp=CAU",
+            "https://i0.wp.com/roboticatic.com/wp-content/uploads/2018/01/myAvatar-2.png",
           password: bcrypt.hashSync("1", SALT_ROUNDS),
           gender: "woman",
           description: "Hello, this is me.",
@@ -51,7 +51,7 @@ module.exports = {
           email: "aaaa@test.com",
           phoneNumber: "0600000000",
           imageAvatar:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSid1oW_E1oqFO0YfCDOnqFPP_lEwagLmIhr4o9euKIO6-Ll7ESqW_1Dl3OMW1iwfJqX8s&usqp=CAU",
+            "https://www.frontiersin.org/files/Articles/404841/frym-06-00051-HTML-r1/image_m/re-eliana.jpg",
           password: bcrypt.hashSync("test1234", SALT_ROUNDS),
           gender: "woman",
           description: "Hello, this is me.",
