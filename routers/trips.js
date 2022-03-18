@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
       { model: User, as: "traveler", attributes: ["name", "id"] },
       { model: User, as: "organizer", attributes: ["name", "id"] },
     ],
-    order: [["startingDate", "ASC"]],
+    order: [["createdAt", "DESC"]],
   });
   res.status(200).send(allTrips);
 });
@@ -52,7 +52,15 @@ router.get("/:id", async (req, res) => {
 module.exports = router;
 
 router.post("/", authMiddleware, async (req, res) => {
-  const { name, comment, tripId } = req.body;
+  const {
+    title,
+    description,
+    image,
+    country,
+    maximumTravelers,
+    endDate,
+    startingDate,
+  } = req.body;
 
   const user = req.user;
 
