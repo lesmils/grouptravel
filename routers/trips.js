@@ -4,6 +4,7 @@ const { toJWT } = require("../auth/jwt");
 const User = require("../models/").user;
 const Trip = require("../models/").trip;
 const Comment = require("../models/").comment;
+const authMiddleware = require("../auth/middleware");
 
 const router = new Router();
 
@@ -40,11 +41,32 @@ router.get("/:id", async (req, res) => {
         attributes: ["name", "id"],
       },
       {
-        model: Comment, include: { model: User, attributes: ["name", "id", "imageAvatar"] }
+        model: Comment,
+        include: { model: User, attributes: ["name", "id", "imageAvatar"] },
       },
     ],
   });
   res.status(200).send(oneTrip);
+});
+
+module.exports = router;
+
+router.post("/", authMiddleware, async (req, res) => {
+  const { name, comment, tripId } = req.body;
+
+  const user = req.user;
+
+  const newTrip = await Trip.create({
+    title: title,
+    description: description,
+    image: image,
+    country: country,
+    maximumTravelers: maximumTravelers,
+    endDate: endDate,
+    startingDate: startingDate,
+    organizerId: user.id,
+  });
+  res.status(200).send(newTrip);
 });
 
 module.exports = router;
