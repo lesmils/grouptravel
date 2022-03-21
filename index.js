@@ -9,6 +9,7 @@ const commentRouter = require("./routers/comments");
 const { Server } = require("socket.io");
 const cors = require("cors");
 const http = require("http");
+const travelerRouter = require("./routers/travelers");
 const { PORT } = require("./config/constants");
 
 const app = express();
@@ -20,6 +21,7 @@ app.use("/auth", authRouter);
 app.use("/trips", tripRouter);
 app.use("/users", userRouter);
 app.use("/comments", commentRouter);
+app.use("/travelers", travelerRouter);
 
 //socket.io
 const server = http.createServer(app);

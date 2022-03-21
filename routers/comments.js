@@ -19,7 +19,7 @@ router.post("/", authMiddleware, async (req, res) => {
     comment: comment,
     tripId: tripId,
     userId: user.id,
-  });
+  })
   res.status(200).send(newComment);
 });
 

@@ -49,8 +49,7 @@ router.get("/:id", async (req, res) => {
   res.status(200).send(oneTrip);
 });
 
-module.exports = router;
-
+//POST A TRIP
 router.post("/", authMiddleware, async (req, res) => {
   const {
     title,
