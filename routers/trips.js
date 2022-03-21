@@ -62,6 +62,17 @@ router.post("/", authMiddleware, async (req, res) => {
     startingDate,
   } = req.body;
 
+  if (
+    !description ||
+    !image ||
+    !country ||
+    !maximumTravelers ||
+    !endDate ||
+    !startingDate
+  ) {
+    return res.status(400).send({ message: "Not enough information" });
+  }
+
   const user = req.user;
 
   const newTrip = await Trip.create({
@@ -76,5 +87,32 @@ router.post("/", authMiddleware, async (req, res) => {
   });
   res.status(200).send(newTrip);
 });
+
+// authMiddleware
+router.post("/traveler", async (req, res) => {
+  // const userTravelerId = req.user.id;
+  // const tripId = req.params.tripId;
+
+  const userTravelerId = req.body.id;
+  const tripId = 2;
+  // const userTravelerId = 2
+  console.log("This is the userTravelerId", userTravelerId);
+  console.log("This is the tripId", tripId);
+  const userAlreadyTraveler = await UserTrips.findAll({
+    where: { travelerId: userTravelerId, tripId: tripId },
+  });
+  if (userAlreadyTraveler.lenght > 0) {
+    res.status(400).send({ message: "User already goes on this trip!" });
+  } else {
+    const newTraveler = await UserTrips.create({
+      tripId: tripId,
+      travelerId: userTravelerId,
+    });
+    res.send(newTraveler);
+  }
+  // console.log("This is the tripId", newTraveler);
+});
+
+module.exports = router;
 
 module.exports = router;
