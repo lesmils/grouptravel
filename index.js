@@ -6,46 +6,54 @@ const authRouter = require("./routers/auth");
 const tripRouter = require("./routers/trips");
 const userRouter = require("./routers/users");
 const commentRouter = require("./routers/comments");
+const { Server } = require("socket.io");
+const cors = require("cors");
+const http = require("http");
 const travelerRouter = require("./routers/travelers");
 const { PORT } = require("./config/constants");
 
-// Create an express app
 const app = express();
 
-/**
- * Middlewares
- *
- * It is advisable to configure your middleware before configuring the routes
- * If you configure routes before the middleware, these routes will not use them
- *
- */
-
-// CORS middleware:  * Since our api is hosted on a different domain than our client
-// we are are doing "Cross Origin Resource Sharing" (cors)
-// Cross origin resource sharing is disabled by express by default
 app.use(corsMiddleWare());
-
-// express.json():be able to read request bodies of JSON requests a.k.a. body-parser
 const bodyParserMiddleWare = express.json();
 app.use(bodyParserMiddleWare);
-
-/**
- * Routes
- *
- * Define your routes and attach our routers here (now that middlewares are configured)
- */
-
 app.use("/auth", authRouter);
 app.use("/trips", tripRouter);
 app.use("/users", userRouter);
 app.use("/comments", commentRouter);
 app.use("/travelers", travelerRouter);
 
-// POST endpoint which requires a token for testing purposes, can be removed
+//socket.io
+const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log(`User Connected: ${socket.id}`);
+
+  socket.on("join_room", (data) => {
+    socket.join(data);
+    console.log(`User with ID: ${socket.id} joined room: ${data}`);
+  });
+
+  socket.on("send_message", (data) => {
+    socket.to(data.room).emit("receive_message", data);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User Disconnected", socket.id);
+  });
+});
+
+//testroute
 app.post("/authorized_post_request", authMiddleWare, (req, res) => {
-  // accessing user that was added to req by the auth middleware
   const user = req.user;
-  // don't send back the password hash
+
   delete user.dataValues["password"];
 
   res.json({
@@ -59,5 +67,9 @@ app.post("/authorized_post_request", authMiddleWare, (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Listening on port: ${PORT}`);
+  console.log(`Express listening on port: ${PORT}`);
+});
+
+server.listen(4001, () => {
+  console.log("Socket on PORT 4001");
 });
